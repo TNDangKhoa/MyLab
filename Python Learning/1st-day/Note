@@ -1,0 +1,23 @@
+1. Python là gì?
+Python là một trong rất nhiều các ngôn ngữ lập trình giúp con người có thê giao tiếp và yêu cầu máy tính thực hiện những yêu cầu của con người
+
+2. Kí tự #:
+Là kí tự được đặt trước một dòng nhằm kí hiệu cho máy bỏ qua không đọc và thực thi dòng ấy
+Mục đích để coder ghi chú 
+
+3. Function print
+- Là chức năng xuất thông tin ra màn hình
+- Cấu trúc: print("string")
+Ví dụ
+print("Hello Python!!!")
+
+4. String
+- Là một Object được sử dụng trong print biểu thị dạng chữ
+- Có thể gộp nhiều chuỗi lại với nhau (contatenate) bằng cách thêm dấu + giữa các chuỗi
+Ví dụ:
+print("Hello Python!!!!" + "Minh la Dang Khoa" + "Va minh rat dep trai")
+
+5. \n
+- Là kí tự ngắt dòng trong chuỗi
+Ví dụ
+print("Hello Python!!!!\n" + "Minh la Dang Khoa\n" + "Va minh rat dep trai\n")

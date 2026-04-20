@@ -1,0 +1,17 @@
+#Yêu cầu:
+
+#Dùng Comment: Viết một dòng ghi chú ở đầu file mô tả đây là chương trình "Hiển thị trạng thái Lab".
+
+#In Banner: Tạo một đường kẻ ngăn cách bằng dấu = dài chính xác 40 ký tự (Dùng mẹo nhân chuỗi của NetworkChuck).
+
+#Cấu trúc String: In ra các thông tin sau, mỗi thông tin nằm trên một dòng, nhưng chỉ được sử dụng duy nhất một lệnh print:
+
+#Device: Cisco_Router_01
+#Status: Active
+#Uptime: 24 hours
+
+#Execute
+
+#Chương trình hiển thị trạng thái Lab
+print("=" * 40 + "\n" + "Device: Cisco_Router_01\n" + "Status: Active\n" + "Uptime: 24 hours\n")
+print("Cau hinh boi: DangKhoa")
