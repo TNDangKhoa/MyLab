@@ -1,0 +1,138 @@
+List cổng mngt của các router:
+R1: 192.168.163.11/24
+R2: 192.168.163.12/24
+R3: 192.168.163.13/24
+R4: 192.168.163.14/24
+R5: 192.168.163.15/24
+R6: 192.168.163.16/24
+R7: 192.168.163.17/24
+R8: 192.168.163.18/24
+R9: 192.168.163.19/24
+R10: 192.168.163.20/24
+
+
+script cấu hình ban đầu:
+
+conf t
+line vty 0 4 #mở cổng vty cho script python
+ no login
+ privilege level 15
+ transport input all
+exit
+int f0/0
+no ip address
+ip address 192.168.163.X 255.255.255.0
+no shutdown
+exit
+exit
+ping 192.168.163.129
+
+khởi tạo mpls
+mpls label protocol ldp
+mpls ldp router-id Loopback0 force
+
+Cấu hình switch l2:
+
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+hostname Switch
+boot-start-marker
+boot-end-marker
+no aaa new-model
+no ip routing
+no ip cef
+no ipv6 cef
+spanning-tree mode pvst
+spanning-tree extend system-id
+vlan internal allocation policy ascending
+interface Ethernet0/0
+ switchport mode access
+interface Ethernet0/1
+ switchport mode access
+interface Ethernet0/2
+interface Ethernet0/3
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+control-plane
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+end
+wr
+
+Cấu hình VRF:
+
+conf t
+ip vrf [KHACH_HANG_XYZ]
+ rd 100:X    #X của mỗi router PE phải khác nhau
+ route-target export 100:100
+ route-target import 100:100
+ route-target both 100:100
+exit
+interface Ethernet2/1
+ ip vrf forwarding [KHACH_HANG_XYZ]
+ ip address 192.168.x.1 255.255.255.252
+ no shut
+exit
+ip route vrf KHACH_HANG_XYZ [lop mang LAN] 255.255.255.0 [IP port1 fw]
+
+FW
+
+config system interface
+    edit "port1"
+	set mode static
+        set ip 192.168.10.2 255.255.255.252
+        set allowaccess ping
+    next
+    edit "port2"
+	set mode static
+        set ip 192.168.1.1 255.255.255.0
+        set allowaccess ping
+    next
+end
+
+config router static
+    edit 1
+        set gateway 192.168.10.1  # IP cổng e2/1 của R10
+        set device "port1"
+    next
+end
+
+config firewall policy
+    edit 1
+        set srcintf "port2"
+        set dstintf "port1"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action accept
+        set schedule "always"
+        set service "ICMP"
+    next
+end
+
+debug xem log
+
+diag debug flow filter addr [ip]
+diag debug flow trace start 100
+diag debug enable
+
+Bgp:
+
+conf t
+router bgp 100
+neighbor 10.0.0.10 remote-as 100
+neighbor 10.0.0.10 update-source Loopback0
+  
+address-family vpnv4
+neighbor 10.0.0.10 activate
+neighbor 10.0.0.10 send-community both
+exit-address-family
+
+address-family ipv4 vrf KHACH_HCM
+redistribute static
+exit-address-family
+exit
