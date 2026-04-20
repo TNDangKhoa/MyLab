@@ -15,3 +15,4 @@
 #Chương trình hiển thị trạng thái Lab
 print("=" * 40 + "\n" + "Device: Cisco_Router_01\n" + "Status: Active\n" + "Uptime: 24 hours\n")
 print("Cau hinh boi: DangKhoa")
+print("=" * 40)
