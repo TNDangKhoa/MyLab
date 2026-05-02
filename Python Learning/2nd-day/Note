@@ -1,0 +1,9 @@
+Function
+
+1. Input(): Là 1 function nhận input từ người sau đó chuyển chúng thành dữ liệu dạng chuỗi (string)
+VD: input("Nhập tên của bạn: ") -> "Nhập tên của bạn: " sẽ được in
+
+2. variables (Biến): Là phương pháp lưu trữ dữ liệu trong bộ nhớ của máy tính, giúp chúng ta có thể sử dụng lại dữ liệu đó nhiều lần trong chương trình. Biến có thể chứa nhiều loại dữ liệu khác nhau như số nguyên, số thực, chuỗi, danh sách, v.v.
+VD: name = "dangkhoa" -> name là biến chứa giá trị "dangkhoa"
+VD: input("Nhập tên của bạn: ") <- làm sao để lưu giá trị người dùng nhập vào biến?
+=> name = input("Nhập tên của bạnL ") -> name sẽ chứa giá trị người dùng nhập vào
